@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub 操作マニュアル｜候補者カードURLの作り方</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#C8253A;--red-light:#f7e8ea;--red-mid:#e8c0c6;--red-dark:#8f1528;
+  --rose:#fdf2f3;--warm:#fffaf9;
+  --text:#2a1a1c;--text-mid:#7a5058;--text-light:#b08890;
+  --border:rgba(200,37,58,0.15);--bsoft:rgba(200,37,58,0.08);
+  --green:#2a7a4a;--green-light:#e8f5ee;--green-mid:#a8d4b8;
+  --blue:#1a5a9a;--blue-light:#e8f0f8;--blue-mid:#b3d0f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--warm);color:var(--text);line-height:1.7;}
+.site-header{background:linear-gradient(135deg,#C8253A 0%,#e05a6e 100%);padding:20px 36px;display:flex;align-items:center;justify-content:space-between;}
+.logo-wrap{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:32px;height:32px;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Serif JP',serif;font-size:13px;}
+.logo-text{font-family:'Noto Serif JP',serif;font-size:17px;color:#fff;letter-spacing:2px;}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:1px;margin-top:1px;}
+.header-note{font-size:11px;color:rgba(255,255,255,0.75);text-align:right;}
+.container{max-width:760px;margin:0 auto;padding:32px 20px 60px;}
+.chapter{margin-bottom:24px;}
+.chapter-label{display:inline-flex;align-items:center;gap:7px;background:var(--red-light);border:1px solid var(--red-mid);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--red);font-weight:500;letter-spacing:0.5px;margin-bottom:8px;}
+.chapter-title{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.chapter-sub{font-size:12.5px;color:var(--text-light);}
+.step-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.step-header{background:var(--rose);padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
+.step-num{width:26px;height:26px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500;flex-shrink:0;}
+.step-title-text{font-size:14px;font-weight:500;color:var(--text);}
+.step-body{padding:18px 20px;display:flex;flex-direction:column;gap:11px;}
+.op{display:flex;gap:10px;align-items:flex-start;}
+.op-num{width:20px;height:20px;background:var(--red-light);border:1px solid var(--red-mid);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--red);flex-shrink:0;margin-top:3px;}
+.op-text{font-size:13px;color:var(--text);line-height:1.75;flex:1;}
+.op-text b{color:var(--red);font-weight:500;}
+.op-text code{background:#f0f0f0;padding:1px 6px;border-radius:4px;font-size:11.5px;font-family:monospace;color:#333;}
+.mock{background:#f6f6f6;border:1px solid #ddd;border-radius:10px;overflow:hidden;}
+.mock-bar{background:#e2e2e2;padding:6px 12px;display:flex;align-items:center;gap:7px;}
+.mock-dots{display:flex;gap:4px;}
+.mock-dot{width:9px;height:9px;border-radius:50%;}
+.gh-topbar{background:#24292f;padding:9px 14px;display:flex;align-items:center;gap:10px;}
+.gh-path{color:#58a6ff;font-size:11.5px;font-family:monospace;}
+.gh-body{padding:14px 16px;background:#fff;}
+.gh-btn-green{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;background:#238636;color:#fff;border-radius:6px;font-size:12px;border:none;font-family:inherit;}
+.gh-btn-gray{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;background:#f6f8fa;color:#24292f;border:1px solid #d0d7de;border-radius:6px;font-size:12px;font-family:inherit;}
+.gh-input-box{border:1px solid #d0d7de;border-radius:6px;padding:5px 9px;font-size:13px;font-family:monospace;color:#24292f;background:#fff;width:100%;margin-bottom:3px;}
+.gh-textarea{width:100%;min-height:65px;padding:6px 9px;border:1px solid #d0d7de;border-radius:6px;font-size:11px;font-family:monospace;color:#24292f;resize:none;}
+.gh-file-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:12px;}
+.file-tag{display:inline-block;background:#ddf4ff;color:#0969da;border:1px solid #b6e3ff;border-radius:4px;padding:1px 6px;font-size:11px;font-family:monospace;}
+.tip{background:var(--green-light);border:1px solid var(--green-mid);border-radius:8px;padding:10px 13px;font-size:12.5px;color:var(--green);display:flex;gap:7px;align-items:flex-start;}
+.warn{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 13px;font-size:12.5px;color:#7a5a00;display:flex;gap:7px;align-items:flex-start;}
+.url-box{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:9px;padding:13px 15px;}
+.url-label{font-size:10px;font-weight:500;color:var(--blue);letter-spacing:1px;margin-bottom:6px;}
+.url-formula{font-family:monospace;font-size:13px;line-height:1.9;}
+.url-var{color:var(--red);background:var(--red-light);padding:1px 5px;border-radius:3px;}
+.url-example{margin-top:8px;padding-top:8px;border-top:1px solid var(--blue-mid);font-family:monospace;font-size:12px;color:var(--green);}
+.section-break{border:none;border-top:1px solid var(--bsoft);margin:30px 0;}
+.once-badge{display:inline-block;background:var(--green-light);color:var(--green);border:1px solid var(--green-mid);border-radius:20px;padding:2px 9px;font-size:10px;font-weight:500;margin-left:6px;vertical-align:middle;}
+.every-badge{display:inline-block;background:var(--red-light);color:var(--red);border:1px solid var(--red-mid);border-radius:20px;padding:2px 9px;font-size:10px;font-weight:500;margin-left:6px;vertical-align:middle;}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.summary-card{border-radius:9px;padding:13px;font-size:12.5px;line-height:1.75;}
+.footer{text-align:center;font-size:11px;color:var(--text-light);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);}
+.mbadge{display:inline-flex;align-items:center;gap:5px;margin-bottom:3px;}
+.mbadge-m{width:17px;height:17px;background:var(--red);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-family:'Noto Serif JP',serif;font-size:8px;}
+.mbadge-t{font-family:'Noto Serif JP',serif;font-size:12px;color:var(--red);letter-spacing:1.5px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo-wrap">
+    <div class="logo-mark">m</div>
+    <div>
+      <div class="logo-text">morich</div>
+      <div class="logo-sub">GITHUB 操作マニュアル</div>
+    </div>
+  </div>
+  <div class="header-note">候補者カードURLの作り方<br>個人GitHubアカウント版</div>
+</header>
+
+<div class="container">
+
+  <!-- PART A -->
+  <div class="chapter">
+    <div class="chapter-label">PART A <span class="once-badge">初回のみ</span></div>
+    <div class="chapter-title">GitHubの準備をする</div>
+    <div class="chapter-sub">一度やれば次回からPART Bだけで完結します。</div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title-text">GitHubにアカウントを作る</div>
+    </div>
+    <div class="step-body">
+      <div class="op">
+        <div class="op-num">1</div>
+        <div class="op-text">ブラウザで <b>github.com</b> を開き「Sign up」をクリック</div>
+      </div>
+      <div class="op">
+        <div class="op-num">2</div>
+        <div class="op-text">Googleアカウントまたは会社のメールアドレスで登録する</div>
+      </div>
+      <div class="op">
+        <div class="op-num">3</div>
+        <div class="op-text"><b>ユーザー名（username）</b>を決める。URLの一部になるので覚えやすいものに<br>
+          例：<code>yamada-emi-morich</code>　<code>suzuki-hanako</code><br>
+          <span style="font-size:12px;color:var(--text-light);">英数字とハイフンのみ。後から変えにくいので慎重に</span>
+        </div>
+      </div>
+      <div class="tip">
+        <div>✓</div>
+        <div>すでにGitHubアカウントがある人はサインインするだけ。STEP 2へ。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title-text">候補者カード用リポジトリを作る</div>
+    </div>
+    <div class="step-body">
+      <div class="op">
+        <div class="op-num">1</div>
+        <div class="op-text">右上の「<b>＋</b>」→「<b>New repository</b>」をクリック</div>
+      </div>
+      <div class="mock">
+        <div class="gh-topbar">
+          <div style="color:#fff;font-size:15px;">⬡</div>
+          <div style="flex:1;background:#30363d;border-radius:4px;padding:3px 10px;font-size:11px;color:#8b949e;">Search...</div>
+          <div style="color:#fff;font-size:13px;">＋ ▾ ← ここ</div>
+        </div>
+        <div class="gh-body" style="font-size:12px;">
+          <div style="padding:6px 0;border-bottom:1px solid #eee;color:#0969da;">New repository ← クリック</div>
+          <div style="padding:6px 0;color:#57606a;">New gist</div>
+        </div>
+      </div>
+      <div class="op">
+        <div class="op-num">2</div>
+        <div class="op-text">以下のように設定して「<b>Create repository</b>」を押す</div>
+      </div>
+      <div class="mock">
+        <div class="gh-body">
+          <div style="margin-bottom:9px;">
+            <div style="font-size:11px;color:#57606a;margin-bottom:3px;">Repository name</div>
+            <div class="gh-input-box">candidates ← この名前にする</div>
+          </div>
+          <div style="margin-bottom:9px;">
+            <div style="font-size:11px;color:#57606a;margin-bottom:4px;">Visibility（公開設定）</div>
+            <label style="display:flex;align-items:center;gap:5px;font-size:12px;"><input type="radio" checked> <b>Public</b>　← 必ずこちらを選ぶ（Privateだと相手が見られない）</label>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label style="display:flex;align-items:center;gap:5px;font-size:12px;"><input type="checkbox" checked> Add a README file ← チェックを入れる</label>
+          </div>
+          <div class="gh-btn-green">Create repository</div>
+        </div>
+      </div>
+      <div class="warn">
+        <div>⚠</div>
+        <div><b>Visibility は必ず「Public」</b>にすること。PrivateだとURLを送っても相手が「404」になります。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title-text">GitHub Pages を有効にする（URLを発行する設定）</div>
+    </div>
+    <div class="step-body">
+      <div class="op">
+        <div class="op-num">1</div>
+        <div class="op-text">作ったリポジトリのページ上部「<b>Settings</b>」タブをクリック</div>
+      </div>
+      <div class="op">
+        <div class="op-num">2</div>
+        <div class="op-text">左メニューをスクロールして「<b>Pages</b>」をクリック</div>
+      </div>
+      <div class="op">
+        <div class="op-num">3</div>
+        <div class="op-text">「Branch」のドロップダウンを「<b>None</b>」→「<b>main</b>」に変えて「<b>Save</b>」を押す</div>
+      </div>
+      <div class="mock">
+        <div class="gh-topbar">
+          <div class="gh-path">（ユーザー名）/ candidates / Settings / Pages</div>
+        </div>
+        <div class="gh-body">
+          <div style="font-size:13px;font-weight:600;color:#24292f;margin-bottom:12px;">GitHub Pages</div>
+          <div style="border:1px solid #d0d7de;border-radius:6px;padding:12px;font-size:12px;">
+            <div style="margin-bottom:8px;font-weight:500;">Branch</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <select style="padding:4px 8px;border:1px solid #d0d7de;border-radius:6px;font-size:12px;"><option>main ← これを選ぶ</option></select>
+              <select style="padding:4px 8px;border:1px solid #d0d7de;border-radius:6px;font-size:12px;"><option>/ (root)</option></select>
+              <div class="gh-btn-green" style="padding:4px 12px;">Save ← 押す</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tip">
+        <div>✓</div>
+        <div>数分後に <code>https://（ユーザー名）.github.io/candidates/</code> というURLが有効になります。これで準備完了！</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-break">
+
+  <!-- PART B -->
+  <div class="chapter">
+    <div class="chapter-label">PART B <span class="every-badge">毎回やる</span></div>
+    <div class="chapter-title">候補者カードをアップしてURLを発行する</div>
+    <div class="chapter-sub">カード生成ツールでHTMLを作った後の手順です。</div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title-text">カード生成ツールでHTMLをコピーする</div>
+    </div>
+    <div class="step-body">
+      <div class="op">
+        <div class="op-num">1</div>
+        <div class="op-text">カード生成ツールで候補者情報を入力・生成する</div>
+      </div>
+      <div class="op">
+        <div class="op-num">2</div>
+        <div class="op-text">「<b>HTMLコード</b>」タブ →「<b>HTMLをコピー</b>」ボタンを押す</div>
+      </div>
+      <div class="tip">
+        <div>✓</div>
+        <div>「コピーしました！」と出ればOK。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title-text">GitHubに新しいファイルを作って貼り付ける</div>
+    </div>
+    <div class="step-body">
+      <div class="op">
+        <div class="op-num">1</div>
+        <div class="op-text"><b>github.com</b> を開き、自分の「<b>candidates</b>」リポジトリに移動する</div>
+      </div>
+      <div class="op">
+        <div class="op-num">2</div>
+        <div class="op-text">「<b>Add file</b>」→「<b>Create new file</b>」をクリック</div>
+      </div>
+      <div class="mock">
+        <div class="gh-topbar">
+          <div class="gh-path">yamada-emi / candidates</div>
+        </div>
+        <div class="gh-body">
+          <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:10px;">
+            <div class="gh-btn-gray">Code ▾</div>
+            <div class="gh-btn-green">＋ Add file ▾ ← ここ</div>
+          </div>
+          <div class="gh-file-row">📄 <span style="color:#0969da;">README.md</span></div>
+        </div>
+      </div>
+      <div class="op">
+        <div class="op-num">3</div>
+        <div class="op-text">ファイル名を入力する。<b>候補者名を英語で・必ず .html をつける</b><br>
+          例：<span class="file-tag">yamada_taro.html</span>　<span class="file-tag">sato_yuki.html</span><br>
+          <span style="font-size:12px;color:var(--text-light);">スペース・記号は使わない。アンダーバー（_）推奨</span>
+        </div>
+      </div>
+      <div class="mock">
+        <div class="gh-topbar">
+          <div class="gh-path">yamada-emi / candidates / <span style="color:#e6edf3;">Name your file...</span></div>
+        </div>
+        <div class="gh-body">
+          <div class="gh-input-box">candidates / <span style="color:var(--red);">yamada_taro.html</span> ← ここに入力（.html 忘れずに）</div>
+        </div>
+      </div>
+      <div class="op">
+        <div class="op-num">4</div>
+        <div class="op-text">下の大きいエディタに <b>Ctrl+V</b> でHTMLを貼り付ける</div>
+      </div>
+      <div class="mock">
+        <div class="gh-body">
+          <div class="gh-textarea">&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+  ← Ctrl+V でここに貼り付ける</div>
+        </div>
+      </div>
+      <div class="op">
+        <div class="op-num">5</div>
+        <div class="op-text">右上または下の「<b>Commit changes</b>」ボタンを押す → そのまま「<b>Commit changes</b>」で確定</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title-text">URLを確認してMessengerに送る</div>
+    </div>
+    <div class="step-body">
+      <div class="op">
+        <div class="op-num">1</div>
+        <div class="op-text">Commitが完了するとGitHubの画面にファイル一覧が表示される。<br>このときブラウザのアドレスバーに表示されているURLをメモしておく<br>
+          <span style="font-size:12px;color:var(--text-light);">例：<code>github.com/yamada-emi/candidates/blob/main/yamada_taro.html</code></span>
+        </div>
+      </div>
+      <div class="op">
+        <div class="op-num">2</div>
+        <div class="op-text">そのURLをもとに、<b>公開URL（相手に送るURL）</b>を以下のルールで組み立てる</div>
+      </div>
+      <div class="url-box">
+        <div class="url-label">公開URLの組み立て方</div>
+        <div class="url-formula" style="margin-bottom:8px;">
+          <span style="color:#57606a;font-size:11px;">GitHubのURL（管理画面）</span><br>
+          github<b>.com</b>/<span class="url-var">ユーザー名</span>/candidates/blob/main/<span class="url-var">ファイル名.html</span><br>
+          <span style="font-size:18px;color:var(--red-mid);display:block;margin:4px 0;">↓ こう変える</span>
+          <span style="color:#57606a;font-size:11px;">公開URL（相手に送るURL）</span><br>
+          github<b>.io</b>/<span class="url-var">ユーザー名</span>/candidates/<span class="url-var">ファイル名.html</span>
+        </div>
+        <div class="url-example">✓ 例：https://yamada-emi.github.io/candidates/yamada_taro.html</div>
+      </div>
+      <div class="warn">
+        <div>⚠</div>
+        <div>
+          <b>.com → .io に変えて、/blob/main/ を消すだけ！</b><br>
+          ❌ <code>github<b>.com</b>/yamada-emi/candidates/<b>blob/main/</b>yamada_taro.html</code><br>
+          ✅ <code>github<b>.io</b>/yamada-emi/candidates/yamada_taro.html</code>
+        </div>
+      </div>
+      <div class="op">
+        <div class="op-num">3</div>
+        <div class="op-text">組み立てたURLをブラウザのアドレスバーに入力して、カードが正しく表示されることを確認する</div>
+      </div>
+      <div class="mock">
+        <div class="mock-bar">
+          <div class="mock-dots">
+            <div class="mock-dot" style="background:#ff5f57"></div>
+            <div class="mock-dot" style="background:#febc2e"></div>
+            <div class="mock-dot" style="background:#28c840"></div>
+          </div>
+          <div class="mock-url">https://yamada-emi.github.io/candidates/yamada_taro.html ← ここに入力してEnter</div>
+        </div>
+        <div class="gh-body" style="text-align:center;padding:20px;color:var(--green);font-size:13px;">
+          🎉 カードが表示されればOK！
+        </div>
+      </div>
+      <div class="op">
+        <div class="op-num">4</div>
+        <div class="op-text">カード生成ツールに戻り「<b>📨 Messenger送付文</b>」タブを開く → URL欄にこのURLを貼り付ける → 「コピー」ボタンを押してMessengerに貼る</div>
+      </div>
+      <div class="tip">
+        <div>✓</div>
+        <div>Commitしてから表示まで最大2〜3分かかる場合があります。404が出たら少し待ってからリロードしてみてください。</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-break">
+
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px;">
+    <div style="font-size:12.5px;font-weight:500;color:var(--red);margin-bottom:12px;">📌 覚えておくことまとめ</div>
+    <div class="summary-grid">
+      <div class="summary-card" style="background:var(--rose);border:1px solid var(--border);">
+        <div style="font-weight:500;color:var(--red);margin-bottom:5px;font-size:13px;">自分のURL</div>
+        <code style="font-size:11px;line-height:1.9;display:block;">https://<b>ユーザー名</b>.github.io<br>/candidates/<b>ファイル名</b>.html</code>
+      </div>
+      <div class="summary-card" style="background:var(--blue-light);border:1px solid var(--blue-mid);">
+        <div style="font-weight:500;color:var(--blue);margin-bottom:5px;font-size:13px;">ファイル名のルール</div>
+        <div style="font-size:12.5px;">英数字＋アンダーバーのみ<br>スペース・記号は使わない<br>必ず <code>.html</code> をつける</div>
+      </div>
+      <div class="summary-card" style="background:var(--green-light);border:1px solid var(--green-mid);">
+        <div style="font-weight:500;color:var(--green);margin-bottom:5px;font-size:13px;">404が出たら</div>
+        <div style="font-size:12.5px;">.io になっているか確認<br>1〜3分待ってリロード<br>ファイル名のスペル確認</div>
+      </div>
+      <div class="summary-card" style="background:#fff8e1;border:1px solid #ffe082;">
+        <div style="font-weight:500;color:#7a5a00;margin-bottom:5px;font-size:13px;">初回だけやること</div>
+        <div style="font-size:12.5px;">アカウント作成<br>candidatesリポジトリ作成（Public）<br>Pages → main で有効化</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="mbadge">
+      <div class="mbadge-m">m</div>
+      <div class="mbadge-t">morich</div>
+    </div>
+    <div>社内向けマニュアル｜不明点は留美子まで</div>
+  </div>
+
+</div>
+</body>
+</html>
